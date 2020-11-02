@@ -1,0 +1,1 @@
+FROM jboss/kie-server-showcase:7.45.0.Final
