@@ -18,17 +18,38 @@ docker build -t my-kie .
 ```
 
 Start by running 
+
 ```
 docker run -p 8180:8080 -d --name kie-server --link drools-wb:kie-wb my-kie:latest
 
 ```
 drools-wb is the drools workbench container name. By linking them workbench can see all kie instances.
 
+
 Go to 
 ```
 http://localhost:8180/kie-server
 ```
 and login using one of the users available. 
+
+OR
+
+assuming kie server deployed at 172.17.0.3
+and workbench at 172.17.0.2
+```
+docker run -p 8180:8080 -d --name kie-server2 \
+-e KIE_SERVER_LOCATION=http://172.17.0.3:8080/kie-server/services/rest/server \
+-e KIE_SERVER_CONTROLLER=http://172.17.0.2:8080/business-central/rest/controller \
+-e KIE_SERVER_CONTROLLER_USER=admin \
+-e KIE_SERVER_CONTROLLER_PWD=admin \
+-e KIE_SERVER_PWD=kieserver1! \
+-e KIE_SERVER_USER=kieserver \
+-e KIE_MAVEN_REPO=http://172.17.0.2:8080/business-central/maven2 \
+-e KIE_MAVEN_REPO_USER=admin \
+-e KIE_MAVEN_REPO_PASSWORD=admin \
+my-kie:latest
+
+```
 
 
 ### Who do I talk to? ###
